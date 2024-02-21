@@ -1,0 +1,45 @@
+mkdir /data/misc/sensors 0664 system system
+
+service msensord /vendor/bin/msensord
+    user system
+    group system
+    oneshot
+
+service akmd8963 /vendor/bin/akmd8963
+    disabled
+    user system
+    group system
+
+
+on post-fs
+
+
+    
+ 		
+ 
+    
+
+
+    chmod 0660 /dev/spm
+    chown system system /dev/spm
+
+on boot
+
+
+
+
+
+service spm_script /vendor/bin/spm_loader
+    user system
+    group system
+    oneshot
+
+#Start add guozy 20161013 for mxc4005xc for renzheng
+   chmod 0660 /system/bin/memsicp_factory
+   chmod 0666 /dev/gsensor
+service memsicp_factory /system/bin/memsicp_factory
+      class main
+     user system
+      group system
+    start memsicp_factory
+#End add for mxc4005xc
